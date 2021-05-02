@@ -1,7 +1,7 @@
-import 'package:clima/services/location.dart';
+import 'package:clima/services/networking.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:core';
+
+const apiKey = '27ea5b71f4a79004a0c688852d1bcdc2';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -9,32 +9,25 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  double latitude = 44.70306;
+  double longitude = 18.49278;
   @override
   void initState() {
     super.initState();
-    getLocation();
-    getData();
+    getLocationData();
   }
 
-  void getLocation() async {
-    Location location = Location();
-    await location.getCurrentLocation();
-    print(location.latitude);
-    print(location.longitude);
-  }
+  void getLocationData() async {
+    // Location location = Location();
+    // await location.getCurrentLocation();
 
-  void getData() async {
-    Uri uri = Uri.https('samples.openweathermap.org', 'data/2.5/weather', {
-      'lat': '44.7075',
-      'lon': '18.4919',
-      'appid': '27ea5b71f4a79004a0c688852d1bcdc2'
-    });
-    http.Response response = await http.get(uri);
-    try {
-      print(response.body);
-    } catch (e) {
-      print(response.statusCode);
-    }
+    // latitude = location.latitude;
+    // longitude = location.longitude;
+
+    NetworkHelper networkHelper = NetworkHelper(
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apiKey');
+
+    var weatherData = networkHelper.getData();
   }
 
   @override
@@ -42,4 +35,5 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return Scaffold();
   }
 }
+
 //http://api.openweathermap.org/data/2.5/weather?q=srebrenik&appid=27ea5b71f4a79004a0c688852d1bcdc2
