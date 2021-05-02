@@ -18,3 +18,21 @@ const kButtonTextStyle = TextStyle(
 const kConditionTextStyle = TextStyle(
   fontSize: 100.0,
 );
+
+const kTextFieldInputDecoration = InputDecoration(
+  icon: Icon(
+    Icons.location_city,
+  ),
+  filled: true,
+  fillColor: Colors.white,
+  hintStyle: TextStyle(
+    color: Colors.grey,
+  ),
+  hintText: 'Upiši mjesto',
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(10.0),
+    ),
+    borderSide: BorderSide.none,
+  ),
+);
